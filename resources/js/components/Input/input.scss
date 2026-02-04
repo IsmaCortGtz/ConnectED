@@ -1,0 +1,44 @@
+input.input-component {
+  background-color: var(--surface2);
+  color: var(--text1);
+  border: 0.15rem solid var(--surface4);
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  outline: none;
+
+  &:focus {
+    border-color: var(--brand);
+  }
+
+  &:disabled {
+    background-color: var(--surface3);
+    cursor: not-allowed;
+  }
+}
+
+label:has(+ input.input-component:required)::after,
+label:has(+ div.input-password-component > input.input-component:required)::after {
+  content: " *";
+  color: var(--error);
+}
+
+div.input-password-component > button.password-toggle-btn {
+  padding: 0.5rem 0.6rem;
+}
+
+div.input:has(>input.input-component),
+div.input:has(>div.input-password-component) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+div.input-password-component {
+  display: flex;
+  gap: 0.4rem;
+}

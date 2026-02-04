@@ -1,0 +1,87 @@
+header.connected-header-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  &.mode-white {
+    color: white;
+
+    svg.logo {
+      fill: white !important;
+    }
+  }
+
+  &.mode-blue {
+    color: var(--brand);
+
+    img.logo {
+      filter: var(--brand-filter);
+    }
+
+    svg.logo {
+      fill: var(--brand) !important;
+    }
+  }
+
+  img.logo, svg.logo {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  span.text {
+    font-weight: bold;
+    font-size: 3rem;
+    color: inherit;
+  }
+}
+
+/* Centered full-page loading state and glow effect */
+.connected-header-component.loading-app-animation {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  z-index: 9999;
+  overflow: hidden;
+
+  /* Fondo que cubre la pantalla (la "hoja" que se desliza) */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--surface0);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  img.logo {
+    width: 6rem;
+    transition: transform 0.25s ease;
+  }
+
+  span.text {
+    font-size: 4rem;
+    margin-left: 0.5rem;
+  }
+
+  /* glow animation on the SVG/content specifically */
+  &.loading svg.logo,
+  &.loading span.text {
+    animation: element-glow 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes element-glow {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(59,130,246,0));
+  }
+  40% {
+    filter: drop-shadow(0 4px 16px rgba(59,130,246,0.4));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(59,130,246,0));
+  }
+}

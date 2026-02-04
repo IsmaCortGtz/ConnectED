@@ -1,0 +1,86 @@
+section.modal-list-container-component-wrapper {
+  --max-width-alert: 500px;
+
+  @media (max-width: 768px) {
+    & {
+      --max-width-alert: 400px;
+    }
+  }
+
+  /* Small mobile */
+  @media (max-width: 480px) {
+    & {
+      --max-width-alert: 90dvw;
+    }
+  }
+
+  article.modal-component-item-container {
+    div.modal-component-item-card:has(> .alert-header) {
+      min-width: none !important;
+      width: 100% !important;
+      max-width: var(--max-width-alert) !important;
+      background-color: var(--alert-card-background-color) !important;
+
+      &:has(.alert-success) {
+        --alert-card-accent-color: var(--success);
+        --alert-card-background-color: var(--success-surface);
+      }
+
+      &:has(.alert-error) {
+        --alert-card-accent-color: var(--error);
+        --alert-card-background-color: var(--error-surface);
+      }
+
+      &:has(.alert-warning) {
+        --alert-card-accent-color: var(--warning);
+        --alert-card-background-color: var(--warning-surface);
+      }
+
+      &:has(.alert-info) {
+        --alert-card-accent-color: var(--info);
+        --alert-card-background-color: var(--info-surface);
+      }
+
+      header.alert-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--alert-card-accent-color);
+        padding: 0.5rem 1.5rem;
+
+        img.alert-icon {
+          width: 7rem;
+          height: 7rem;
+          user-select: none;
+        }
+
+        h4.alert-title {
+          text-align: center;
+          font-weight: bolder;
+          color: white;
+        }
+      }
+
+      p.alert-message {
+        padding: 0.8rem 1.5rem;
+        text-align: center;
+      }
+
+      div.alert-buttons-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        padding-top: 0;
+
+        button {
+          flex: 1;
+          max-width: 50%;
+        }
+      }
+    }
+  }
+}
