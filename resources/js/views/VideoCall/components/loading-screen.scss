@@ -1,0 +1,32 @@
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  .loading-spinner {
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 0.25rem solid rgba(255, 255, 255, 0.2);
+    border-top-color: #1f9bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: #e8eaed;
+    margin: 0;
+  }
+}

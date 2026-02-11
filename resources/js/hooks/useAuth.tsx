@@ -2,7 +2,7 @@ import Alert from "@/components/Alert";
 import { resetAuth, setAuth, setInitializing } from "@/store/slices/auth";
 import { RootState } from "@/store/store";
 import axios, { AxiosError } from "axios";
-import { useEffect } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router";
 
@@ -20,13 +20,23 @@ export function useAuth(useVerify: boolean = false) {
         dispatch(setAuth(data));
       } catch (error) {
         dispatch(setInitializing(false));
+
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) return dispatch(resetAuth());
+          else Alert.error("Error verifying session", error.response?.data?.message || "There was an error while verifying the session. Please try again later.");
+        }
       }
     };
 
-    if (auth.isInitializing) {
-      verifySession();
-    }
+    if (auth.isInitializing) verifySession();
   }, []);
+
+  useEffect(() => {
+    if (auth.isInitializing) return;
+    if (useVerify && !auth.id) {
+      navigate('/login');
+    }
+  }, [auth.isInitializing]);
   
   const isLoggedIn = () => {
     if (!auth) return false;
@@ -71,7 +81,8 @@ export function useAuth(useVerify: boolean = false) {
     }
   }
 
-  const logout = async () => {
+  const logout = async (e?: React.MouseEvent<HTMLAnchorElement>) => {
+    e?.preventDefault();
     try {
       await axios.post('/logout');
       dispatch(resetAuth());

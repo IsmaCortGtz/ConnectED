@@ -15,7 +15,7 @@ export function AlertProvider({ children }: AlertProviderProps) {
   const renderAlertModal = (type: AlertType, id: string, title: string, message: string, buttons: AlertButton[]) => (
     <Fragment>
       <header className={`alert-header alert-${type}`}>
-        <img className='alert-icon' src={`/icons/${type}.svg`} alt={type} />
+        <img className='alert-icon' src={`/assets/icons/${type}.svg`} alt={type} />
         <h4 className='alert-title'>{title}</h4>
       </header>
 

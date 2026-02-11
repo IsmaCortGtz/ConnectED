@@ -1,0 +1,57 @@
+.controls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.8rem;
+  z-index: 200;
+  background: rgba(32, 33, 36, 0.95);
+  padding: 0.5rem 0.8rem;
+  border-radius: 1.8rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid #404245;
+
+  .btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    background: #404245;
+    color: #e8eaed;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #5a5c61;
+    }
+
+    &.active {
+      background: #1f9bff;
+      color: white;
+    }
+
+    &.hangup {
+      background: #d32f2f;
+      color: white;
+
+      &:hover {
+        background: #c2185b;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    img.icon {
+      object-fit: contain;
+      width: 50%;
+      height: 50%;
+    }
+  }
+}

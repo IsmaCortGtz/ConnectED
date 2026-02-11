@@ -1,17 +1,23 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/test', function (Request $request) {
-        return response()->json(['message' => 'Authenticated access granted.']);
+
+    Route::get("/user", [AuthController::class, 'me']);
+    
+    /* Admin routes */
+    Route::prefix('admin')->middleware('role:administrator')->group(function () {
+        /* Users module */
+        Route::get("/users", [Admin\Users::class, 'index']);
+        Route::post("/users", [Admin\Users::class, 'store']);
+
+        /* Courses module */
+        Route::get("/courses", [Admin\Courses::class, 'index']);
+        Route::post("/courses", [Admin\Courses::class, 'store']);
+        Route::get("/professors", [Admin\Professors::class, 'indexCourses']);
     });
 
-    Route::get("/user", function (Request $request) {
-        // wait 1 second to simulate delay only for this route (not sleep the whole app)
-        usleep(1000000);
-        
-        return $request->user();
-    });
 });

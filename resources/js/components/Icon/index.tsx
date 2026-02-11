@@ -1,11 +1,13 @@
-export interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+import { motion, HTMLMotionProps } from 'framer-motion';
+
+export interface IconProps extends HTMLMotionProps<"img"> {
   icon: string;
 }
 
 export function Icon({ icon, className, ... props }: IconProps) {
-  return <img 
+  return <motion.img 
     {...props}  
-    src={`/icons/${icon}.svg`}
+    src={`/assets/icons/${icon}.svg`}
     alt={`icon-${icon}`}
     className={`icon-component icon ${className}`}
   />;

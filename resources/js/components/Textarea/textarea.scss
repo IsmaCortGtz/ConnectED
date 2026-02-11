@@ -1,0 +1,38 @@
+textarea.textarea-component {
+  background-color: var(--surface2);
+  color: var(--text1);
+  border: 0.15rem solid var(--surface4);
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  min-height: 3lh;
+  font-size: 0.8rem;
+
+  &:focus {
+    border-color: var(--brand);
+  }
+
+  &:disabled {
+    background-color: var(--surface3);
+    cursor: not-allowed;
+  }
+}
+
+label:has(+ textarea.textarea-component:required)::after {
+  content: " *";
+  color: var(--error);
+}
+
+div.textarea:has(textarea.textarea-component) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+}

@@ -8,6 +8,7 @@ import './theme.scss'
 import { AlertProvider } from './components/Alert'
 import { ModalProvider } from './components/Modal'
 import axios from "axios"
+import { Header } from './components/Header'
 
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
@@ -17,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <ModalProvider>
         <AlertProvider>
-            <App />
+          <App />
         </AlertProvider>
       </ModalProvider>
     </Provider>

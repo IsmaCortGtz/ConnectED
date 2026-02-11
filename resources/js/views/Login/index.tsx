@@ -17,7 +17,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user && user.id) navigate('/');
+    if (user && user.id) navigate('/dashboard');
   }, [user?.id, navigate]);
 
   return (

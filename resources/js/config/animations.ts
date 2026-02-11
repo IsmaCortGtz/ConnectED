@@ -1,3 +1,5 @@
+import { cubicBezier } from "framer-motion";
+
 export const animationConfig = {
   // Contenedor principal
   container: {
@@ -167,5 +169,19 @@ export const animationConfig = {
     emailField: 0.15,
     passwordLabel: 0.16,
     passwordField: 0.19,
+  },
+
+  // Header Page Animations
+  headerPage: {
+    initial: { y: -50, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 0.4, ease: cubicBezier(0.68, -0.55, 0.26, 1.55) },
+  },
+
+  headerDropdown: {
+    initial: { opacity: 0, y: -10 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 },
+    transition: { duration: 0.2 },
   },
 };

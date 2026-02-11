@@ -1,17 +1,21 @@
-@media (max-width: 768px) {
-  html, body, #root {
-    background-color: var(--surface1) !important;
-  }
+html, body, #root {
+  &:has(>section.authentication-section-container) {
+    @media (max-width: 768px) {
+      & {
+        background-color: var(--surface1) !important;
+      }
 
-  section.authentication-section-container form {
-    width: 100% !important;
-    border-radius: 0 !important;
-    padding: 2.5rem 1.5rem !important;
+      section.authentication-section-container form {
+        width: 100% !important;
+        border-radius: 0 !important;
+        padding: 2.5rem 1.5rem !important;
+      }
+    }
   }
 }
 
 section.authentication-section-container {
-  padding: 2rem;
+  padding: 0 2rem;
   flex: 1;
   display: flex;
   justify-content: center;

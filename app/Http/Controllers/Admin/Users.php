@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class Users extends Controller {
+
+    public function index(Request $request) {
+        $perPage = $request->query('per_page', 10);
+        $perPage = min($perPage, 100);
+
+        $users = User::query()
+            ->orderBy('created_at', 'asc')
+            ->paginate($perPage);
+        
+        return response()->json($users);
+    }
+
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|in:administrator,professor,student',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        $user = new User();
+        $user->name = $validated['name'];
+        $user->last_name = $validated['last_name'];
+        $user->email = $validated['email'];
+        $user->password = bcrypt($validated['password']);
+        $user->role = $validated['role'];
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $user->id . '.' . $file->getClientOriginalExtension();
+            $request->file('image')->storeAs('avatars', $filename, 'public');
+            $user->image = $filename;
+        }
+
+        $user->save();
+        return response()->json($user, 201);
+    }
+}

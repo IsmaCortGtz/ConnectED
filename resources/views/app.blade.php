@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConnectED</title>
-    <link rel="icon" type="image/png" href="/connected.png">
+    <link rel="icon" type="image/png" href="/assets/connected.png">
     @viteReactRefresh
     @vite('resources/js/main.tsx')
 

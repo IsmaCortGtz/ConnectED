@@ -1,0 +1,13 @@
+/* Desktop */
+@mixin media-desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+/* Big mobile */
+@mixin media-mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}

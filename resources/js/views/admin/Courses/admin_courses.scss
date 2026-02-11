@@ -1,0 +1,50 @@
+@use "@/styles/media.scss" as media;
+
+main:has(section.admin-create-course-section) {
+  @include media.media-desktop {
+    max-width: 1000px;
+  }
+}
+
+table.admin-courses-table {
+  td.role {
+    text-transform: capitalize;
+  }
+
+  div.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+
+h1.admin-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 0.15rem solid var(--border);
+}
+
+
+section.admin-create-course-section {
+  form.admin-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    div.input-group {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      gap: 1.2rem;
+
+      div.input {
+        flex: 1;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ input.input-component {
   border-radius: 0.5rem;
   padding: 0.5rem 0.8rem;
   outline: none;
+  font-size: 0.8rem;
 
   &:focus {
     border-color: var(--brand);
@@ -27,18 +28,26 @@ div.input-password-component > button.password-toggle-btn {
   padding: 0.5rem 0.6rem;
 }
 
-div.input:has(>input.input-component),
-div.input:has(>div.input-password-component) {
+div.input:has(input.input-component),
+div.input:has(div.input-password-component) {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 
   label {
     font-weight: bold;
+    font-size: 0.9rem;
   }
 }
 
 div.input-password-component {
   display: flex;
   gap: 0.4rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--surface2) inset !important;
 }
