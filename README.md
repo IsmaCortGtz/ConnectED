@@ -1,59 +1,195 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="public/assets/full-logo.svg" width="400" alt="ConnectED Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# ConnectED
 
-## About Laravel
+Plataforma educativa en línea con capacidades de videollamadas en tiempo real utilizando WebRTC.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requisitos Previos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Asegúrate de tener instalado lo siguiente:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP** >= 8.2
+- **Composer**
+- **Node.js** >= 18.x
+- **npm** o **yarn**
+- **Go** >= 1.21 (para el servidor WebRTC)
+- **MySQL** u otro motor de base de datos compatible
+- **OpenSSL** (para generar certificados HTTPS)
 
-## Learning Laravel
+## Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Clonar el Repositorio
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone <url-del-repositorio>
+cd Proyecto
+```
 
-## Laravel Sponsors
+### 2. Instalar Dependencias de PHP
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+composer install
+```
 
-### Premium Partners
+### 3. Configurar Variables de Entorno
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Copia el archivo de ejemplo `.env.example` y renómbralo a `.env`:
 
-## Contributing
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Configura las variables de entorno en el archivo `.env`, especialmente:
+- La configuración de la base de datos (`DB_*`)
+- La URL de la aplicación (`APP_URL`)
 
-## Code of Conduct
+### 4. Generar la Clave de la Aplicación
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 5. Ejecutar Migraciones
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+### 6. Ejecutar Seeders (Opcional)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Si deseas poblar la base de datos con datos de prueba:
+
+```bash
+php artisan db:seed
+```
+
+### 7. Instalar Dependencias de Node.js
+
+```bash
+npm install
+```
+
+### 8. Generar Certificados HTTPS para WebRTC
+
+El servidor WebRTC requiere certificados SSL para funcionar. Crea un directorio para los certificados y genera un certificado autofirmado:
+
+```bash
+mkdir -p ~/certs
+openssl req -x509 -newkey rsa:4096 -keyout ~/certs/localhost.key -out ~/certs/localhost.crt -days 365 -nodes
+```
+
+Durante la generación, puedes dejar los campos en blanco o completarlos según prefieras. Lo importante es tener los archivos `localhost.key` y `localhost.crt` en `~/certs/`.
+
+### 9. Compilar el Servidor WebRTC
+
+```bash
+cd app/WebRTC
+go build -o webrtc-sfu
+cd ../..
+```
+
+## Ejecución
+
+### Desarrollo
+
+Tienes dos opciones para ejecutar la aplicación en modo desarrollo:
+
+#### Opción 1: Ejecutar todo con un solo comando
+
+```bash
+composer run dev
+```
+
+Este comando ejecuta automáticamente:
+- Servidor Laravel (`php artisan serve`)
+- Sistema de colas (`php artisan queue:listen`)
+- Logs en tiempo real (`php artisan pail`)
+- Servidor Vite para el frontend (`npm run dev`)
+
+**Importante:** Este comando NO incluye el servidor WebRTC. Debes ejecutarlo por separado:
+
+```bash
+npm run webrtc
+```
+
+#### Opción 2: Ejecutar cada servicio manualmente
+
+En terminales separadas, ejecuta:
+
+**Terminal 1 - Backend Laravel:**
+```bash
+php artisan serve
+```
+
+**Terminal 2 - Frontend (Vite):**
+```bash
+npm run dev
+```
+
+**Terminal 3 - Servidor WebRTC:**
+```bash
+npm run webrtc
+```
+
+### Producción
+
+#### 1. Construir el Frontend
+
+```bash
+npm run build
+```
+
+Este comando compila los assets de React/TypeScript optimizados para producción.
+
+#### 2. Ejecutar el Backend
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+O configura un servidor web como **Nginx** o **Apache** para servir la aplicación.
+
+#### 3. Ejecutar el Servidor WebRTC
+
+```bash
+npm run webrtc
+```
+
+O ejecuta directamente el binario compilado:
+
+```bash
+cd app/WebRTC
+CERT_FILE=~/certs/localhost.crt KEY_FILE=~/certs/localhost.key ./webrtc-sfu
+```
+
+## Estructura del Proyecto
+
+```
+├── app/                    # Código PHP (Laravel)
+│   ├── Http/              # Controladores y middleware
+│   ├── Models/            # Modelos Eloquent
+│   └── WebRTC/            # Servidor WebRTC (Go)
+├── database/
+│   ├── migrations/        # Migraciones de base de datos
+│   └── seeders/           # Seeders
+├── resources/
+│   ├── js/                # Frontend (React + TypeScript)
+│   └── views/             # Vistas Blade
+├── routes/                # Rutas de la aplicación
+└── public/                # Assets públicos
+```
+
+## Tecnologías
+
+- **Backend:** Laravel 12, PHP 8.2
+- **Frontend:** React 19, TypeScript, Vite, Redux Toolkit
+- **WebRTC:** Go, Pion WebRTC
+- **Estilos:** SCSS, Framer Motion
+- **Base de datos:** MySQL
+
+## Notas Importantes
+
+- El servidor WebRTC escucha en el puerto **8080** por defecto
+- El backend de Laravel escucha en el puerto **8000** por defecto
+- El servidor Vite (desarrollo) escucha en el puerto **5173** por defecto
+- Los certificados HTTPS son necesarios para que WebRTC funcione correctamente en navegadores modernos
