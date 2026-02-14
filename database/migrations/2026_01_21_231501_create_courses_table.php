@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text("description");
             $table->string("image")->nullable();
             $table->enum('status', ['active', 'draft', 'deleted'])->default('draft');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

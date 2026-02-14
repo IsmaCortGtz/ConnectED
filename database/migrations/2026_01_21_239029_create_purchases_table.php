@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal("discount", 8, 2);
             $table->string("pay_id");
             $table->enum("status", ["active", "draft", "deleted"])->default("draft");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

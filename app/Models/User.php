@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +51,17 @@ class User extends Authenticatable
     /** Professor courses */
     public function courses() {
         return $this->hasMany(Course::class, 'professor_id');
+    }
+
+
+
+    /** Student purchases */
+    public function purchases() {
+        return $this->hasMany(Purchase::class, 'student_id');
+    }
+
+    /** Student ratings */
+    public function ratings() {
+        return $this->hasMany(Rating::class, 'student_id');
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->tinyInteger("rate");
             $table->text("comment")->nullable();
             $table->enum("status", ["active", "draft", "deleted"])->default("active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
