@@ -44,8 +44,8 @@ export function AdminUsers() {
             label: 'Actions',
             className: 'actions',
             fitContent: true,
-            render: (_row) => (<div className='actions'>
-              <Button btnLevel='success' btnSize='tiny'>
+            render: (row) => (<div className='actions'>
+              <Button onClick={() => navigate(`edit/${row.id}`)} btnLevel='success' btnSize='tiny'>
                 <Icon icon='edit' />
               </Button>
               <Button btnLevel='error' btnSize='tiny'>

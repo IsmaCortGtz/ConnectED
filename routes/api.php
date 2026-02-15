@@ -12,11 +12,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('admin')->middleware('role:administrator')->group(function () {
         /* Users module */
         Route::get("/users", [Admin\Users::class, 'index']);
+        Route::get("/users/{id}", [Admin\Users::class, 'show']);
         Route::post("/users", [Admin\Users::class, 'store']);
+        Route::put("/users/{id}", [Admin\Users::class, 'update']);
 
         /* Courses module */
         Route::get("/courses", [Admin\Courses::class, 'index']);
+        Route::get("/courses/{id}", [Admin\Courses::class, 'show']);
         Route::post("/courses", [Admin\Courses::class, 'store']);
+        Route::put("/courses/{id}", [Admin\Courses::class, 'update']);
         Route::get("/professors", [Admin\Professors::class, 'indexCourses']);
     });
 

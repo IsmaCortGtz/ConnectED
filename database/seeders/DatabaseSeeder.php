@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,12 +24,24 @@ class DatabaseSeeder extends Seeder
             'role' => 'administrator',
         ]);
 
-        User::factory(50)->create([
+        User::factory(2)->create([
             'role' => 'student',
         ]);
 
-        User::factory(50)->create([
+        User::factory(2)->create([
             'role' => 'professor',
+        ]);
+
+        Course::create([
+            'title' => 'Mathematics 101',
+            'description' => 'An introductory course to Mathematics.',
+            'professor_id' => User::where('role', 'professor')->first()->id,
+        ]);
+
+        Course::create([
+            'title' => 'Physics 101',
+            'description' => 'An introductory course to Physics.',
+            'professor_id' => User::where('role', 'professor')->skip(1)->first()->id,
         ]);
     }
 }

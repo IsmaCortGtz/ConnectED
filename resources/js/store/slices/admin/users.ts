@@ -4,7 +4,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 export const usersApi = createApi({
   reducerPath: "adminUsers",
   baseQuery: axiosBaseQuery(),
-  tagTypes: ["Users"],
+  tagTypes: ["Users", "User"],
 
   endpoints: (builder) => ({
 
@@ -20,6 +20,14 @@ export const usersApi = createApi({
       }),
     }),
 
+    getUser: builder.query({
+      providesTags: (_result, _error, id) => [{ type: "User", id }],
+      query: (id: string) => ({
+        url: `/admin/users/${id}`,
+        method: "GET",
+      }),
+    }),
+
     createUser: builder.mutation({
       invalidatesTags: ["Users"],
       query: (userData: FormData) => ({
@@ -29,7 +37,16 @@ export const usersApi = createApi({
       }),
     }),
 
+    updateUser: builder.mutation({
+      invalidatesTags: (_result, _error, { id }) => [{ type: "User", id }, "Users"],
+      query: ({ id, userData }: { id: string; userData: FormData }) => ({
+        url: `/admin/users/${id}`,
+        method: "POST", // Using POST with _method=PUT for Laravel compatibility
+        data: userData,
+      }),
+    }),
+
   }),
 });
 
-export const { useGetUsersQuery, useCreateUserMutation } = usersApi;
+export const { useGetUsersQuery, useGetUserQuery, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation } = usersApi;

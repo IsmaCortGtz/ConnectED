@@ -4,7 +4,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 export const coursesApi = createApi({
   reducerPath: "adminCourses",
   baseQuery: axiosBaseQuery(),
-  tagTypes: ["Courses"],
+  tagTypes: ["Courses", "Course"],
 
   endpoints: (builder) => ({
 
@@ -20,6 +20,14 @@ export const coursesApi = createApi({
       }),
     }),
 
+    getCourse: builder.query({
+      providesTags: (_result, _error, id) => [{ type: "Course", id }],
+      query: (id: string) => ({
+        url: `/admin/courses/${id}`,
+        method: "GET",
+      }),
+     }),
+
     createCourse: builder.mutation({
       invalidatesTags: ["Courses"],
       query: (courseData: FormData) => ({
@@ -29,7 +37,16 @@ export const coursesApi = createApi({
       }),
     }),
 
+    updateCourse: builder.mutation({
+      invalidatesTags: (_result, _error, { id }) => [{ type: "Course", id }, "Courses"],
+      query: ({ id, courseData }: { id: string; courseData: FormData }) => ({
+        url: `/admin/courses/${id}`,
+        method: "POST", // Using POST with _method=PUT for Laravel compatibility
+        data: courseData,
+      }),
+    }),
+
   }),
 });
 
-export const { useGetCoursesQuery, useCreateCourseMutation } = coursesApi;
+export const { useGetCoursesQuery, useGetCourseQuery, useCreateCourseMutation, useUpdateCourseMutation } = coursesApi;

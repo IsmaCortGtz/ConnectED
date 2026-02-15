@@ -7,17 +7,15 @@ import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { Select } from "@/components/Select";
 import { Textarea } from '@/components/Textarea';
-import { useParams } from 'react-router';
 
 export function AdminCreateCourse() {
-  const { createNewCourse, professors, isLoading } = useAdminCourse();
-  const { id } = useParams();  
+  const { handleSubmit, professors, courseData, isLoading, isEditMode } = useAdminCourse();
 
   return (
     <section className="admin-create-course-section">
-      <h1 className='admin-section-title'>Create New Course</h1>
+      <h1 className='admin-section-title'>{isEditMode ? "Edit" : "Create"} Course</h1>
 
-      <form onSubmit={createNewCourse} className="admin-form">
+      <form onSubmit={handleSubmit} className="admin-form">
 
         <motion.div className="input" variants={animationConfig.input}>
           <motion.label
@@ -33,7 +31,7 @@ export function AdminCreateCourse() {
             animate={{ scale: 1 }}
             transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
           >
-            <Input id="title" name="title" placeholder="Title" required />
+            <Input id="title" name="title" placeholder="Title" required defaultValue={courseData?.title || ""} />
           </motion.div>
         </motion.div>
 
@@ -51,7 +49,13 @@ export function AdminCreateCourse() {
             animate={{ scale: 1 }}
             transition={{ delay: animationConfig.delays.passwordField, duration: 0.15 }}
           >
-            <Select name="professor_id" id="professor_id" defaultValue="" disabled={professors.length === 0} required>
+            <Select 
+              key={`course-professor-${courseData?.professor_id || "new"}-list-${professors.length}`} 
+              name="professor_id" id="professor_id" 
+              defaultValue={courseData?.professor_id || ""} 
+              disabled={professors.length === 0} 
+              required
+            >
               <option value="" disabled>-- Select a professor --</option>
               {professors.map(professor => (
                 <option key={professor.id} value={professor.id}>
@@ -76,13 +80,13 @@ export function AdminCreateCourse() {
             animate={{ scale: 1 }}
             transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
           >
-            <Textarea id="description" name="description" placeholder="Description" required />
+            <Textarea id="description" name="description" placeholder="Description" defaultValue={courseData?.description || ""} required />
           </motion.div>
         </motion.div>
 
         <Button type="submit" loading={isLoading}>
           <Icon icon="save" />
-          Create Course
+          {isEditMode ? "Update Course" : "Create Course"}
         </Button>
       </form>
     </section>
