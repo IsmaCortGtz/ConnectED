@@ -101,4 +101,17 @@ class Users extends Controller {
         $user->save();
         return response()->json($user);
     }
+
+    public function destroy($id) {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // No borro la imagen ya que al ser borrado logico,
+        // el usuario podria ser restaurado y la imagen seguiria siendo necesaria
+
+        $user->delete();
+        return response()->json(['message' => 'User deleted successfully']);
+    }
 }

@@ -46,6 +46,14 @@ export const usersApi = createApi({
       }),
     }),
 
+    deleteUser: builder.mutation({
+      invalidatesTags: (_result, _error, id) => [{ type: "User", id }, "Users"],
+      query: (id: string) => ({
+        url: `/admin/users/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
   }),
 });
 

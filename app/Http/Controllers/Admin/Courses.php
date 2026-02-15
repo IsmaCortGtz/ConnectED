@@ -89,4 +89,14 @@ class Courses extends Controller {
         $course->save();
         return response()->json($course);
     }
+
+    public function destroy($id) {
+        $course = Course::find($id);
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+
+        $course->delete();
+        return response()->json(['message' => 'Course deleted']);
+    }
 }
