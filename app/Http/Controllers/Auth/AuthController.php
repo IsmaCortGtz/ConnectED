@@ -43,6 +43,7 @@ class AuthController extends Controller {
             "last_name" => "required|string|max:255|min:2",
             "email" => "required|email|max:255|min:5|unique:users,email",
             "password" => "required|min:8|max:255|confirmed",
+            "role" => "required|in:student,professor",
         ]);
 
         $user = User::create($userData);

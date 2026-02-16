@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { animationConfig } from "@/config/animations";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
+import { Select } from "@/components/Select";
 
 const MotionLink = motion.create(Link);
 
@@ -93,6 +94,27 @@ export default function RegisterPage() {
             transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
           >
             <Input name="email" placeholder="Email" required />
+          </motion.div>
+        </motion.div>
+
+        <motion.div className="select" variants={animationConfig.input}>
+          <motion.label
+            htmlFor="role"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: animationConfig.delays.emailLabel, ...animationConfig.inputLabel.visible.transition }}
+          >
+            Role
+          </motion.label>
+          <motion.div
+            initial={{ scale: 0.98 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
+          >
+            <Select name="role" required>
+              <option value="student">Student</option>
+              <option value="professor">Professor</option>
+            </Select>
           </motion.div>
         </motion.div>
 
