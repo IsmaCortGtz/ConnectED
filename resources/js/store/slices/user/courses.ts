@@ -4,7 +4,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 export const userCoursesApi = createApi({
   reducerPath: "userCourses",
   baseQuery: axiosBaseQuery(),
-  tagTypes: ["Courses"],
+  tagTypes: ["Courses", "Course"],
 
   endpoints: (builder) => ({
     getUserCourses: builder.query({
@@ -15,7 +15,15 @@ export const userCoursesApi = createApi({
       }),
     }),
 
+    getUserCourse: builder.query({
+      providesTags: (_result, _error, id) => [{ type: "Course", id }],
+      query: (id) => ({
+        url: `/user/courses/${id}`,
+        method: "GET",
+      }),
+    }),
+
   }),
 });
 
-export const { useGetUserCoursesQuery } = userCoursesApi;
+export const { useGetUserCoursesQuery, useGetUserCourseQuery } = userCoursesApi;

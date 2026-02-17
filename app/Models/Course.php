@@ -16,7 +16,7 @@ class Course extends Model {
     ];
 
     public function professor() {
-        return $this->belongsTo(User::class, 'professor_id');
+        return $this->belongsTo(User::class, 'professor_id')->withTrashed();
     }
 
     public function lessons() {

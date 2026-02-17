@@ -7,7 +7,7 @@
         "dev": "vite",
         "lint": "eslint .",
         "preview": "vite preview",
-        "webrtc": "cd app/WebRTC && CERT_FILE=~/certs/localhost.crt KEY_FILE=~/certs/localhost.key ./webrtc-sfu"
+        "webrtc": "CERT_FILE=~/certs/localhost.crt KEY_FILE=~/certs/localhost.key ./app/WebRTC/webrtc-sfu"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.11.2",

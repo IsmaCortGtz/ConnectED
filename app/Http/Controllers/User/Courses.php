@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Courses extends Controller {
     public function index() {
@@ -25,5 +26,26 @@ class Courses extends Controller {
             });
 
         return response()->json($courses);    
+    }
+
+    public function show($id) {
+        $course = Course::where('id', $id)
+            ->with('professor')
+            ->with('lessons')
+            ->firstOrFail();
+
+        return response()->json([
+            'id' => $course->id,
+            'title' => $course->title,
+            'description' => $course->description,
+            'image' => $course->image,
+            'rating' => $course->rating(),
+            'lessons_count' => $course->lessons()->count(),
+            'professor' => [
+                'name' => $course->professor->name . ' ' . $course->professor->last_name,
+                'image' => $course->professor->image,
+            ],
+            'lessons' => $course->lessons,
+        ]);
     }
 }

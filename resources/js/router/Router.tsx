@@ -15,6 +15,7 @@ import { AdminCourses } from "@/views/admin/Courses";
 import { AdminCreateCourse } from "@/views/admin/Courses/create";
 import { UserCourses } from "@/views/user/Courses";
 import { UserRoles } from "@/store/types/auth";
+import UserLessons from "@/views/user/Lessons";
 
 export default function Router() {
   return (
@@ -46,6 +47,7 @@ export default function Router() {
         {/* User */}
         <Route element={<ProtectedRoute role={UserRoles.STUDENT} />}>
           <Route path="discover" Component={UserCourses} />
+          <Route path="course/:id" Component={UserLessons} />
         </Route>
 
         {/* Error Pages */}

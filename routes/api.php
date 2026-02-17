@@ -30,5 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     /* User routes */
     Route::prefix('user')->middleware('role:student')->group(function () {
         Route::get("/courses", [User\Courses::class, 'index']);
+        Route::get("/courses/{id}", [User\Courses::class, 'show']);
     });
 });

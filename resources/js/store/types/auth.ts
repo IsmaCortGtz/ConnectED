@@ -1,7 +1,7 @@
 import { DatabaseStatus } from ".";
 
 export enum UserRoles {
-  ADMIN = 'admin',
+  ADMIN = 'administrator',
   TEACHER = 'teacher',
   STUDENT = 'student',
 }

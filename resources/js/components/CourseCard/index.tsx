@@ -7,11 +7,12 @@ export interface CourseCardProps {
   lessons: number;
   rating: number;
   imageUrl: string;
+  onClick?: () => void;
 }
 
 export default function CourseCard(props: CourseCardProps) {
   return (
-    <article className="course-card">
+    <article className="course-card" onClick={props.onClick}>
       <img className="course-image" src={props.imageUrl} alt="" />
 
       <div className='course-content'>
