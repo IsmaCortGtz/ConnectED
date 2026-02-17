@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { ConnectED } from '../ConnectED';
 import { animationConfig } from '@/config/animations';
 import { Button } from '../Button';
+import { UserRoles } from '@/store/types/auth';
 
 const NAV_ROUTES = {
   dashboard: '/dashboard',
@@ -16,6 +17,7 @@ const NAV_ROUTES = {
 
   users: '/admin/users',
   courses: '/admin/courses',
+  discover: '/discover',
 };
 
 export function Header() {
@@ -62,23 +64,31 @@ export function Header() {
                   Dashboard
                 </NavLink>
 
-                <section className='navbar-dropdown'>
-                  <span className='navbar-dropdown-title' tabIndex={0}>
-                    Modules
-                    <Icon
-                      className='open-dropdown-icon'
-                      icon="keyboard-arrow-up"
-                    />
-                  </span>
-                  <article className='navbar-dropdown-container'>
-                    <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.users}>
-                      Users
-                    </NavLink>
-                    <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.courses}>
-                      Courses
-                    </NavLink>
-                  </article>
-                </section>
+                {role === UserRoles.STUDENT && (<>
+                  <NavLink className='item' to={NAV_ROUTES.discover}>
+                    Discover
+                  </NavLink>
+                </>)}
+
+                {role === UserRoles.ADMIN && (
+                  <section className='navbar-dropdown'>
+                    <span className='navbar-dropdown-title' tabIndex={0}>
+                      Modules
+                      <Icon
+                        className='open-dropdown-icon'
+                        icon="keyboard-arrow-up"
+                      />
+                    </span>
+                    <article className='navbar-dropdown-container'>
+                      <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.users}>
+                        Users
+                      </NavLink>
+                      <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.courses}>
+                        Courses
+                      </NavLink>
+                    </article>
+                  </section>
+                )}
               </nav>
 
               <footer className='sidebar-footer'>

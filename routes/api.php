@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\User;
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -26,4 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get("/professors", [Admin\Professors::class, 'indexCourses']);
     });
 
+    /* User routes */
+    Route::prefix('user')->middleware('role:student')->group(function () {
+        Route::get("/courses", [User\Courses::class, 'index']);
+    });
 });

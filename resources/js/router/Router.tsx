@@ -13,6 +13,8 @@ import { AdminUsers } from "@/views/admin/Users";
 import { AdminCreateUser } from "@/views/admin/Users/create";
 import { AdminCourses } from "@/views/admin/Courses";
 import { AdminCreateCourse } from "@/views/admin/Courses/create";
+import { UserCourses } from "@/views/user/Courses";
+import { UserRoles } from "@/store/types/auth";
 
 export default function Router() {
   return (
@@ -31,15 +33,19 @@ export default function Router() {
         </Route>
 
         {/* Admin */}
-        <Route path="/admin" element={<ProtectedRoute />}>
+        <Route path="/admin" element={<ProtectedRoute role={UserRoles.ADMIN} />}>
           <Route path="users" Component={AdminUsers} />
           <Route path="users/create" Component={AdminCreateUser} />
           <Route path="users/edit/:id" Component={AdminCreateUser} />
 
-
           <Route path="courses" Component={AdminCourses} />
           <Route path="courses/create" Component={AdminCreateCourse} />
           <Route path="courses/edit/:id" Component={AdminCreateCourse} />
+        </Route>
+
+        {/* User */}
+        <Route element={<ProtectedRoute role={UserRoles.STUDENT} />}>
+          <Route path="discover" Component={UserCourses} />
         </Route>
 
         {/* Error Pages */}
