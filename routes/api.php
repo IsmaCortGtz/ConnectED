@@ -19,12 +19,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete("/users/{id}", [Admin\Users::class, 'destroy']);
 
         /* Courses module */
+        Route::get("/courses/professors", [Admin\Professors::class, 'indexCourses']);
         Route::get("/courses", [Admin\Courses::class, 'index']);
         Route::get("/courses/{id}", [Admin\Courses::class, 'show']);
         Route::post("/courses", [Admin\Courses::class, 'store']);
         Route::put("/courses/{id}", [Admin\Courses::class, 'update']);
         Route::delete("/courses/{id}", [Admin\Courses::class, 'destroy']);
-        Route::get("/professors", [Admin\Professors::class, 'indexCourses']);
+
+        /* Lessons module */
+        Route::get("/lessons/courses", [Admin\Courses::class, 'indexLessons']);
+        Route::get("/lessons", [Admin\Lessons::class, 'index']);
+        Route::get("/lessons/{id}", [Admin\Lessons::class, 'show']);
+        Route::post("/lessons", [Admin\Lessons::class, 'store']);
+        Route::put("/lessons/{id}", [Admin\Lessons::class, 'update']);
+        Route::delete("/lessons/{id}", [Admin\Lessons::class, 'destroy']);
     });
 
     /* User routes */

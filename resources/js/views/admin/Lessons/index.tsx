@@ -1,20 +1,20 @@
-import './admin_courses.scss';
-import { useDeleteCourseMutation, useGetCoursesQuery } from '@/store/slices/admin/courses';
-import { Table } from '@/components/Table';
-import { Button } from '@/components/Button';
-import { Icon } from '@/components/Icon';
-import { useNavigate } from 'react-router';
-import { useRef } from 'react';
-import Alert from '@/components/Alert';
+import './admin_lessons.scss';
+import Alert from "@/components/Alert";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import { Table } from "@/components/Table";
+import { useDeleteLessonMutation, useGetLessonsQuery } from "@/store/slices/admin/lesson";
+import { useRef } from "react";
+import { useNavigate } from "react-router";
 
-export function AdminCourses() {
+export default function AdminLessons() {
   const navigate = useNavigate();
-  const [deleteCourse] = useDeleteCourseMutation();
+  const [deleteLesson] = useDeleteLessonMutation();
   const deleteRef = useRef(false);
 
   const handleDelete = (id: string) => {
     return async () => {
-      Alert.warning('Confirm Deletion', 'Are you sure you want to delete this course?', [
+      Alert.warning('Confirm Deletion', 'Are you sure you want to delete this lesson?', [
         {
           label: 'Cancel',
           type: 'outlined',
@@ -27,11 +27,11 @@ export function AdminCourses() {
             if (deleteRef.current) return; // Prevent multiple clicks
             deleteRef.current = true;
             try {
-              await deleteCourse(id).unwrap();
-              Alert.success('Course Deleted', 'The course has been successfully deleted.');
+              await deleteLesson(id).unwrap();
+              Alert.success('Lesson Deleted', 'The lesson has been successfully deleted.');
               close();
             } catch (error) {
-              Alert.error('Deletion Failed', 'An error occurred while deleting the course.');
+              Alert.error('Deletion Failed', 'An error occurred while deleting the lesson.');
             } finally {
               deleteRef.current = false;
             }
@@ -44,16 +44,16 @@ export function AdminCourses() {
   return (
     <section>
       <h1 className='admin-section-title'>
-        Manage Courses
+        Manage Lessons
         <Button onClick={() => navigate("create")}>
           <Icon icon='add' />
-          New Course
+          New Lesson
         </Button>
       </h1>
 
       <Table
-        tableClassName='admin-courses-table'
-        useQuery={useGetCoursesQuery}
+        tableClassName='admin-lessons-table'
+        useQuery={useGetLessonsQuery}
         structure={[
           {
             label: '#',
@@ -61,12 +61,27 @@ export function AdminCourses() {
             fitContent: true,
           },
           {
-            label: 'Title',
-            key: 'title',
+            label: 'Course',
+            key: 'course',
           },
           {
-            label: 'Description',
-            key: 'description',
+            label: 'Price ($ MXN)',
+            key: 'price',
+          },
+          {
+            label: 'Discount (%)',
+            key: 'discount',
+          },
+          {
+            label: 'Date',
+            key: 'date',
+            render: (row) => new Date(row.date).toLocaleDateString('es-MX', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              minute: '2-digit',
+              hour: '2-digit',
+            }),
           },
           {
             label: 'Actions',

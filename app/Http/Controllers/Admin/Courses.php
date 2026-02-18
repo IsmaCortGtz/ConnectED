@@ -40,6 +40,7 @@ class Courses extends Controller {
         $course->title = $validated['title'];
         $course->description = $validated['description'];
         $course->professor_id = $validated['professor_id'];
+        $course->status = "active";
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -98,5 +99,11 @@ class Courses extends Controller {
 
         $course->delete();
         return response()->json(['message' => 'Course deleted']);
+    }
+
+    public function indexLessons() {
+        $courses = Course::all('id', 'title');
+
+        return response()->json($courses);
     }
 }

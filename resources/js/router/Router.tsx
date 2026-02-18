@@ -16,6 +16,8 @@ import { AdminCreateCourse } from "@/views/admin/Courses/create";
 import { UserCourses } from "@/views/user/Courses";
 import { UserRoles } from "@/store/types/auth";
 import UserLessons from "@/views/user/Lessons";
+import AdminLessons from "@/views/admin/Lessons";
+import { AdminCreateLesson } from "@/views/admin/Lessons/create";
 
 export default function Router() {
   return (
@@ -42,6 +44,10 @@ export default function Router() {
           <Route path="courses" Component={AdminCourses} />
           <Route path="courses/create" Component={AdminCreateCourse} />
           <Route path="courses/edit/:id" Component={AdminCreateCourse} />
+
+          <Route path="lessons" Component={AdminLessons} />
+          <Route path="lessons/create" Component={AdminCreateLesson} />
+          <Route path="lessons/edit/:id" Component={AdminCreateLesson} />
         </Route>
 
         {/* User */}

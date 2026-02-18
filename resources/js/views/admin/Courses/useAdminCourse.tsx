@@ -22,7 +22,7 @@ export function useAdminCourse() {
 
     (async () => {
       try {
-        const { data } = await axios.get("/api/admin/professors");
+        const { data } = await axios.get("/api/admin/courses/professors");
         setLoadingProfessors(false);
         setProfessors(data);
       } catch (err: any) {

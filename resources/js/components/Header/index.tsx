@@ -18,6 +18,7 @@ const NAV_ROUTES = {
 
   users: '/admin/users',
   courses: '/admin/courses',
+  lessons: '/admin/lessons',
   discover: '/discover',
 };
 
@@ -86,6 +87,9 @@ export function Header() {
                       </NavLink>
                       <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.courses}>
                         Courses
+                      </NavLink>
+                      <NavLink className='navbar-dropdown-item item' to={NAV_ROUTES.lessons}>
+                        Lessons
                       </NavLink>
                     </article>
                   </section>
