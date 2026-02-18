@@ -67,11 +67,6 @@ header.page-header-container {
         gap: 0.6rem;
       }
 
-      &:hover svg.profile-picture, 
-      &:focus-within svg.profile-picture {
-        border-color: #ffffff;
-      }
-
       .open-profile-icon {
         @include media.media-mobile {
           display: none;
@@ -89,22 +84,8 @@ header.page-header-container {
         }
       }
 
-      svg.profile-picture {
-        aspect-ratio: 1 / 1;
+      .profile-picture {
         height: 60%;
-        object-fit: contain;
-        border-radius: 100%;
-        background-color: var(--surface3);
-        border: 0.13rem solid #ffffff8a;
-        transition: border-color $transition-speed;
-
-        circle {
-          fill: var(--brand);
-        }
-
-        text {
-          fill: #fff;
-        }
       }
 
       .open-drawer-icon {

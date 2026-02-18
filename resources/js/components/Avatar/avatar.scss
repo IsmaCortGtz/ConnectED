@@ -1,0 +1,22 @@
+svg.avatar-component.default-avatar {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 100%;
+  background-color: var(--surface3);
+  border: 0.13rem solid #ffffff8a;
+
+  circle {
+    fill: var(--brand);
+  }
+
+  text {
+    fill: #fff;
+  }
+}
+
+img.avatar-component.image-avatar {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 0.13rem solid #ffffff8a;
+}

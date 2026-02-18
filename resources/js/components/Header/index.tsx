@@ -10,6 +10,7 @@ import { ConnectED } from '../ConnectED';
 import { animationConfig } from '@/config/animations';
 import { Button } from '../Button';
 import { UserRoles } from '@/store/types/auth';
+import Avatar from '../Avatar';
 
 const NAV_ROUTES = {
   dashboard: '/dashboard',
@@ -116,24 +117,7 @@ export function Header() {
                 transition={{ duration: 0.2 }}
               />
 
-              <svg
-                className='profile-picture'
-                viewBox="0 0 24 24"
-                fill="#007BFF"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="12" cy="12" r="24" />
-                <text
-                  x="12"
-                  y="16.5"
-                  textAnchor="middle"
-                  fontWeight="bold"
-                  fontSize="12"
-                  fontFamily="sans-serif"
-                >
-                  {name ? name[0].toUpperCase() : '?'}
-                </text>
-              </svg>
+              <Avatar className="profile-picture" text={name} />
 
               <Icon
                 className='open-drawer-icon'

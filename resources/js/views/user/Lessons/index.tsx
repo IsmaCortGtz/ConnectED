@@ -1,5 +1,7 @@
 import { useGetUserCourseQuery } from "@/store/slices/user/courses";
 import { useParams } from "react-router";
+import './lessons.scss';
+import Avatar from "@/components/Avatar";
 
 export default function UserLessons() {
   const { id } = useParams();
@@ -7,13 +9,19 @@ export default function UserLessons() {
   
   return (
     <section>
-      <h2>Lessons</h2>
+      <header className="course-header">
+        <h2 className="course-title">{data?.title}</h2>
+        <p className="course-description">{data?.description}</p>
+      
+        <section className="course-professor">
+          <Avatar className="professor-avatar" image={data?.professor?.image} text={data?.professor?.name} />
+          <span className="professor-name">{data?.professor?.name}</span>
+        </section>
+      </header>
 
-      <h3>{data?.title}</h3>
-      <p>{data?.description}</p>
-
-      <img src={data?.professor?.image} alt={data?.professor?.name} />
-      <span>{data?.professor?.name}</span>
+      <section className="lesson-list-container">
+        <p>hola</p>
+      </section>
 
     </section>
   );
