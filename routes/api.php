@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/users", [Admin\Users::class, 'store']);
         Route::put("/users/{id}", [Admin\Users::class, 'update']);
         Route::delete("/users/{id}", [Admin\Users::class, 'destroy']);
+        Route::patch("/users/{id}/restore", [Admin\Users::class, 'restore']);
 
         /* Courses module */
         Route::get("/courses/professors", [Admin\Professors::class, 'indexCourses']);
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/courses", [Admin\Courses::class, 'store']);
         Route::put("/courses/{id}", [Admin\Courses::class, 'update']);
         Route::delete("/courses/{id}", [Admin\Courses::class, 'destroy']);
+        Route::patch("/courses/{id}/restore", [Admin\Courses::class, 'restore']);
 
         /* Lessons module */
         Route::get("/lessons/courses", [Admin\Courses::class, 'indexLessons']);
@@ -33,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post("/lessons", [Admin\Lessons::class, 'store']);
         Route::put("/lessons/{id}", [Admin\Lessons::class, 'update']);
         Route::delete("/lessons/{id}", [Admin\Lessons::class, 'destroy']);
+        Route::patch("/lessons/{id}/restore", [Admin\Lessons::class, 'restore']);
     });
 
     /* User routes */

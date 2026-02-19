@@ -55,7 +55,15 @@ export const lessonsApi = createApi({
       }),
     }),
 
+    restoreLesson: builder.mutation({
+      invalidatesTags: (_result, _error, id) => [{ type: "Lesson", id }, "Lessons"],
+      query: (id: string) => ({
+        url: `/admin/lessons/${id}/restore`,
+        method: "PATCH",
+      }),
+    }),
+
   }),
 });
 
-export const { useGetLessonsQuery, useGetLessonQuery, useCreateLessonMutation, useUpdateLessonMutation, useDeleteLessonMutation } = lessonsApi;
+export const { useGetLessonsQuery, useGetLessonQuery, useCreateLessonMutation, useUpdateLessonMutation, useDeleteLessonMutation, useRestoreLessonMutation } = lessonsApi;

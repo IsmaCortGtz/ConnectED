@@ -1,11 +1,14 @@
 import { useGetUserCourseQuery } from "@/store/slices/user/courses";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import './lessons.scss';
 import Avatar from "@/components/Avatar";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
 
 export default function UserLessons() {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetUserCourseQuery(id);
+  const { data } = useGetUserCourseQuery(id);
   
   return (
     <section>
@@ -20,7 +23,28 @@ export default function UserLessons() {
       </header>
 
       <section className="lesson-list-container">
-        <p>hola</p>
+        
+        {data?.lessons?.map((lesson: any, idx: number) => (
+          <article className="lesson-item">
+            <div className="left-side">
+              <h4>Lesson #{data?.lessons?.length - idx}</h4>
+              <span>{
+                new Date(lesson.date).toLocaleDateString('es-MX', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  minute: '2-digit',
+                  hour: '2-digit',
+                })
+              }</span>
+            </div>
+
+            <Button onClick={() => navigate(`/video-call/${lesson.key}`)} btnSize="tiny" btnLevel="success">
+              <Icon icon="videocam" />
+            </Button>
+          </article>
+        ))}
+
       </section>
 
     </section>

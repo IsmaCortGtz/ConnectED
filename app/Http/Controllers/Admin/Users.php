@@ -14,6 +14,7 @@ class Users extends Controller {
         $perPage = min($perPage, 100);
 
         $users = User::query()
+            ->withTrashed()
             ->orderBy('created_at', 'asc')
             ->paginate($perPage);
         
@@ -21,7 +22,7 @@ class Users extends Controller {
     }
 
     public function show($id) {
-        $user = User::find($id);
+        $user = User::withTrashed()->find($id);
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
@@ -57,7 +58,7 @@ class Users extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $user = User::find($id);
+        $user = User::withTrashed()->find($id);
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
@@ -113,5 +114,18 @@ class Users extends Controller {
 
         $user->delete();
         return response()->json(['message' => 'User deleted successfully']);
+    }
+
+    public function restore($id) {
+        $user = User::withTrashed()->find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        if (!$user->trashed()) {
+            return response()->json(['message' => 'User is not deleted'], 400);
+        }
+
+        $user->restore();
+        return response()->json(['message' => 'User restored successfully']);
     }
 }

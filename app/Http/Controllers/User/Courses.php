@@ -31,7 +31,9 @@ class Courses extends Controller {
     public function show($id) {
         $course = Course::where('id', $id)
             ->with('professor')
-            ->with('lessons')
+            ->with(['lessons' => function($query) {
+                $query->orderBy('date', 'desc');
+            }])
             ->firstOrFail();
 
         return response()->json([

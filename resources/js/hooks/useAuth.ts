@@ -2,7 +2,7 @@ import Alert from "@/components/Alert";
 import { resetAuth, setAuth, setInitializing } from "@/store/slices/auth";
 import { RootState } from "@/store/store";
 import axios, { AxiosError } from "axios";
-import { MouseEventHandler, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router";
 

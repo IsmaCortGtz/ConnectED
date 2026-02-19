@@ -20,6 +20,12 @@ class Courses extends Controller {
         return response()->json($courses);
     }
 
+    public function indexLessons() {
+        $courses = Course::all('id', 'title');
+
+        return response()->json($courses);
+    }
+
     public function show($id) {
         $course = Course::find($id);
         if (!$course) {
@@ -101,9 +107,13 @@ class Courses extends Controller {
         return response()->json(['message' => 'Course deleted']);
     }
 
-    public function indexLessons() {
-        $courses = Course::all('id', 'title');
+    public function restore($id) {
+        $course = Course::withTrashed()->find($id);
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
 
-        return response()->json($courses);
+        $course->restore();
+        return response()->json(['message' => 'Course restored']);
     }
 }

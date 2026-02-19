@@ -101,4 +101,14 @@ class Lessons extends Controller {
         $lesson->delete();
         return response()->json(['message' => 'Lesson deleted']);
     }
+
+    public function restore($id) {
+        $lesson = Lesson::withTrashed()->find($id);
+        if (!$lesson) {
+            return response()->json(['message' => 'Lesson not found'], 404);
+        }
+
+        $lesson->restore();
+        return response()->json(['message' => 'Lesson restored']);
+    }
 }

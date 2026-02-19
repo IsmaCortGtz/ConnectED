@@ -38,7 +38,7 @@ export default function VideoCall() {
 
   const handleHangup = () => {
     disconnect();
-    navigate('/');
+    navigate(-1);
   };
 
   const toggleParticipants = () => {
