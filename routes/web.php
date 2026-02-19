@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
 
-Route::get('/imprimir', [App\Http\Controllers\GeneradorController::class, 'imprimir'])->name('imprimir');
+Route::get('/print/users', [App\Http\Controllers\Admin\PDFController::class, 'generateUsersPDF']);
+Route::get('/print/courses', [App\Http\Controllers\Admin\PDFController::class, 'generateCoursesPDF']);
+Route::get('/print/lessons', [App\Http\Controllers\Admin\PDFController::class, 'generateLessonsPDF']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);

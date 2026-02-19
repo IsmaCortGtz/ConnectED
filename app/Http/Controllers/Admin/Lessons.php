@@ -15,6 +15,7 @@ class Lessons extends Controller {
         $perPage = min($perPage, 100);
 
         $lessons = Lesson::query()
+            ->withTrashed()
             ->with(['course:id,title'])
             ->orderBy('created_at', 'asc')
             ->paginate($perPage)
@@ -27,6 +28,7 @@ class Lessons extends Controller {
                     'discount' => $lesson->discount,
                     'date' => $lesson->date,
                     'status' => $lesson->status,
+                    'deleted_at' => $lesson->deleted_at,
                 ];
             });
         
@@ -34,7 +36,7 @@ class Lessons extends Controller {
     }
 
     public function show($id) {
-        $lesson = Lesson::find($id);
+        $lesson = Lesson::withTrashed()->find($id);
         if (!$lesson) {
             return response()->json(['message' => 'Lesson not found'], 404);
         }
@@ -62,7 +64,7 @@ class Lessons extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $lesson = Lesson::find($id);
+        $lesson = Lesson::withTrashed()->find($id);
         if (!$lesson) {
             return response()->json(['message' => 'Lesson not found'], 404);
         }
@@ -93,7 +95,7 @@ class Lessons extends Controller {
     }
 
     public function destroy($id) {
-        $lesson = Lesson::find($id);
+        $lesson = Lesson::withTrashed()->find($id);
         if (!$lesson) {
             return response()->json(['message' => 'Lesson not found'], 404);
         }

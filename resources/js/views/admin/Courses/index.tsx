@@ -1,54 +1,32 @@
 import './admin_courses.scss';
-import { useDeleteCourseMutation, useGetCoursesQuery } from '@/store/slices/admin/courses';
+import { useDeleteCourseMutation, useGetCoursesQuery, useRestoreCourseMutation } from '@/store/slices/admin/courses';
 import { Table } from '@/components/Table';
 import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { useNavigate } from 'react-router';
-import { useRef } from 'react';
-import Alert from '@/components/Alert';
+import useTableActions from '@/hooks/useTableActions';
 
 export function AdminCourses() {
   const navigate = useNavigate();
   const [deleteCourse] = useDeleteCourseMutation();
-  const deleteRef = useRef(false);
-
-  const handleDelete = (id: string) => {
-    return async () => {
-      Alert.warning('Confirm Deletion', 'Are you sure you want to delete this course?', [
-        {
-          label: 'Cancel',
-          type: 'outlined',
-          onClick: (close) => close(),
-        },
-        {
-          label: 'Delete',
-          type: 'filled',
-          onClick: async (close) => {
-            if (deleteRef.current) return; // Prevent multiple clicks
-            deleteRef.current = true;
-            try {
-              await deleteCourse(id).unwrap();
-              Alert.success('Course Deleted', 'The course has been successfully deleted.');
-              close();
-            } catch (error) {
-              Alert.error('Deletion Failed', 'An error occurred while deleting the course.');
-            } finally {
-              deleteRef.current = false;
-            }
-          }
-        }
-      ]);
-    };
-  };
+  const [restoreCourse] = useRestoreCourseMutation();
+  const { handleDelete, handleRestore } = useTableActions('course');
 
   return (
     <section>
       <h1 className='admin-section-title'>
         Manage Courses
-        <Button onClick={() => navigate("create")}>
-          <Icon icon='add' />
-          New Course
-        </Button>
+
+        <div className='buttons'>
+          <Button onClick={() => navigate("create")}>
+            <Icon icon='add' />
+            New Course
+          </Button>
+          <Button btnLevel='success' onClick={() => window.open('/print/courses', '_blank')}>
+            <Icon icon='docs' />
+            Generate PDF
+          </Button>
+        </div>
       </h1>
 
       <Table
@@ -76,9 +54,15 @@ export function AdminCourses() {
               <Button onClick={() => navigate(`edit/${row.id}`)} btnLevel='success' btnSize='tiny'>
                 <Icon icon='edit' />
               </Button>
-              <Button onClick={handleDelete(row.id)} btnLevel='error' btnSize='tiny'>
-                <Icon icon='delete' />
-              </Button>
+              {row.deleted_at ? (
+                <Button onClick={handleRestore(row.id, restoreCourse)} btnLevel='warning' title='Restore' btnSize='tiny'>
+                  <Icon icon='logout' />
+                </Button>
+              ) : (
+                <Button onClick={handleDelete(row.id, deleteCourse)} btnLevel='error' title='Delete' btnSize='tiny'>
+                  <Icon icon='delete' />
+                </Button>
+              )}
             </div>),
           }
         ]}

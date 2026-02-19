@@ -14,6 +14,7 @@ class Courses extends Controller {
         $perPage = min($perPage, 100);
 
         $courses = Course::query()
+            ->withTrashed()
             ->orderBy('created_at', 'asc')
             ->paginate($perPage);
         
@@ -27,7 +28,7 @@ class Courses extends Controller {
     }
 
     public function show($id) {
-        $course = Course::find($id);
+        $course = Course::withTrashed()->find($id);
         if (!$course) {
             return response()->json(['message' => 'Course not found'], 404);
         }
@@ -60,7 +61,7 @@ class Courses extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $course = Course::find($id);
+        $course = Course::withTrashed()->find($id);
         if (!$course) {
             return response()->json(['message' => 'Course not found'], 404);
         }
@@ -98,7 +99,7 @@ class Courses extends Controller {
     }
 
     public function destroy($id) {
-        $course = Course::find($id);
+        $course = Course::withTrashed()->find($id);
         if (!$course) {
             return response()->json(['message' => 'Course not found'], 404);
         }

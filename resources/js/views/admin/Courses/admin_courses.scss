@@ -26,6 +26,11 @@ h1.admin-section-title {
   padding-bottom: 0.8rem;
   margin-bottom: 1.8rem;
   border-bottom: 0.15rem solid var(--border);
+
+  div.buttons {
+    display: flex;
+    gap: 0.8rem;
+  }
 }
 
 

@@ -1,54 +1,32 @@
 import './admin_lessons.scss';
-import Alert from "@/components/Alert";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { Table } from "@/components/Table";
-import { useDeleteLessonMutation, useGetLessonsQuery } from "@/store/slices/admin/lesson";
-import { useRef } from "react";
+import useTableActions from '@/hooks/useTableActions';
+import { useDeleteLessonMutation, useGetLessonsQuery, useRestoreLessonMutation } from "@/store/slices/admin/lesson";
 import { useNavigate } from "react-router";
 
 export default function AdminLessons() {
   const navigate = useNavigate();
   const [deleteLesson] = useDeleteLessonMutation();
-  const deleteRef = useRef(false);
-
-  const handleDelete = (id: string) => {
-    return async () => {
-      Alert.warning('Confirm Deletion', 'Are you sure you want to delete this lesson?', [
-        {
-          label: 'Cancel',
-          type: 'outlined',
-          onClick: (close) => close(),
-        },
-        {
-          label: 'Delete',
-          type: 'filled',
-          onClick: async (close) => {
-            if (deleteRef.current) return; // Prevent multiple clicks
-            deleteRef.current = true;
-            try {
-              await deleteLesson(id).unwrap();
-              Alert.success('Lesson Deleted', 'The lesson has been successfully deleted.');
-              close();
-            } catch (error) {
-              Alert.error('Deletion Failed', 'An error occurred while deleting the lesson.');
-            } finally {
-              deleteRef.current = false;
-            }
-          }
-        }
-      ]);
-    };
-  };
+  const [restoreLesson] = useRestoreLessonMutation();
+  const { handleDelete, handleRestore } = useTableActions('lesson');
 
   return (
     <section>
       <h1 className='admin-section-title'>
         Manage Lessons
-        <Button onClick={() => navigate("create")}>
-          <Icon icon='add' />
-          New Lesson
-        </Button>
+
+        <div className='buttons'>
+          <Button onClick={() => navigate("create")}>
+            <Icon icon='add' />
+            New Lesson
+          </Button>
+          <Button btnLevel='success' onClick={() => window.open('/print/lessons', '_blank')}>
+            <Icon icon='docs' />
+            Generate PDF
+          </Button>
+        </div>
       </h1>
 
       <Table
@@ -91,9 +69,15 @@ export default function AdminLessons() {
               <Button onClick={() => navigate(`edit/${row.id}`)} btnLevel='success' btnSize='tiny'>
                 <Icon icon='edit' />
               </Button>
-              <Button onClick={handleDelete(row.id)} btnLevel='error' btnSize='tiny'>
-                <Icon icon='delete' />
-              </Button>
+              {row.deleted_at ? (
+                <Button onClick={handleRestore(row.id, restoreLesson)} btnLevel='warning' title='Restore' btnSize='tiny'>
+                  <Icon icon='logout' />
+                </Button>
+              ) : (
+                <Button onClick={handleDelete(row.id, deleteLesson)} btnLevel='error' title='Delete' btnSize='tiny'>
+                  <Icon icon='delete' />
+                </Button>
+              )}
             </div>),
           }
         ]}

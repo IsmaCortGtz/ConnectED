@@ -16,10 +16,17 @@ export function AdminUsers() {
     <section>
       <h1 className='admin-section-title'>
         Manage Users
-        <Button onClick={() => navigate("create")}>
-          <Icon icon='add' />
-          New User
-        </Button>
+
+        <div className='buttons'>
+          <Button onClick={() => navigate("create")}>
+            <Icon icon='add' />
+            New User
+          </Button>
+          <Button btnLevel='success' onClick={() => window.open('/print/users', '_blank')}>
+            <Icon icon='docs' />
+            Generate PDF
+          </Button>
+        </div>
       </h1>
 
       <Table
