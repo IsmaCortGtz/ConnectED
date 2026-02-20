@@ -42,5 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('user')->middleware('role:student')->group(function () {
         Route::get("/courses", [User\Courses::class, 'index']);
         Route::get("/courses/{id}", [User\Courses::class, 'show']);
+
+        Route::post("/lessons/{lesson}/payment", [User\StripeController::class, 'init']);
     });
 });
