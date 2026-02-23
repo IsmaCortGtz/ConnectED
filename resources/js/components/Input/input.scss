@@ -16,6 +16,19 @@ input.input-component {
     background-color: var(--surface3);
     cursor: not-allowed;
   }
+
+  &::file-selector-button {
+    background-color: var(--brand0);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.5);
+    }
+  }
 }
 
 label:has(+ input.input-component:required)::after,
