@@ -84,6 +84,24 @@ export function AdminCreateCourse() {
           </motion.div>
         </motion.div>
 
+        <motion.div className="input" variants={animationConfig.input}>
+          <motion.label
+            htmlFor="image"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: animationConfig.delays.emailLabel, ...animationConfig.inputLabel.visible.transition }}
+          >
+            Image
+          </motion.label>
+          <motion.div
+            initial={{ scale: 0.98 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
+          >
+            <Input id="image" name="image" placeholder="Image" type="file" />
+          </motion.div>
+        </motion.div>
+
         <Button type="submit" loading={isLoading}>
           <Icon icon="save" />
           {isEditMode ? "Update Course" : "Create Course"}
