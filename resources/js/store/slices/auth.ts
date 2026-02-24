@@ -38,6 +38,7 @@ export const authSlice = createSlice({
       state.role = UserRoles.STUDENT;
       state.status = DatabaseStatus.DISABLED;
       state.isInitializing = false;
+      state.image = undefined;
     },
     setInitializing: (state, action: PayloadAction<boolean>) => {
       state.isInitializing = action.payload;
