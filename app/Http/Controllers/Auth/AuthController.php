@@ -25,6 +25,10 @@ class AuthController extends Controller {
                 "role" => Auth::user()->role,
                 "status" => Auth::user()->status,
             ];
+
+            if (Auth::user()->image) {
+                $user["image"] = url("/storage/avatars/" . Auth::user()->image);
+            }
             
             return response()->json([
                 "message" => "Login successful",
@@ -89,6 +93,10 @@ class AuthController extends Controller {
                 "role" => Auth::user()->role,
                 "status" => Auth::user()->status,
             ];
+
+            if (Auth::user()->image) {
+                $user["image"] = url("/storage/avatars/" . Auth::user()->image);
+            }
 
             return response()->json($user, 200);
         }

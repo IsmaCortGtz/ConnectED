@@ -24,7 +24,7 @@ const NAV_ROUTES = {
 
 export function Header() {
   const { logout, isLoggedIn } = useAuth();
-  const { name, role } = useSelector((state: RootState) => state.auth);
+  const { name, role, image } = useSelector((state: RootState) => state.auth);
   const [profile, setProfile] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -121,7 +121,7 @@ export function Header() {
                 transition={{ duration: 0.2 }}
               />
 
-              <Avatar className="profile-picture" text={name} />
+              <Avatar className="profile-picture" image={image} text={name} />
 
               <Icon
                 className='open-drawer-icon'

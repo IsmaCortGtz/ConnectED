@@ -13,4 +13,5 @@ export interface AuthState {
   email: string;
   role: UserRoles;
   status: DatabaseStatus;
+  image?: string;
 }
