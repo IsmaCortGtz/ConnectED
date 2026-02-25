@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 export default function HomePage() {
   const navigate = useNavigate();
   const videoUrl = '';
+  const videoPoster = 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=1200';
 
   const carouselImages = [
     {
@@ -215,7 +216,7 @@ export default function HomePage() {
             <video 
               controls 
               preload="metadata"
-              poster="https://images.unsplash.com/photo-1588072432836-e10032774350?w=1200"
+              poster={videoPoster}
             >
               <source src={videoUrl} type="video/mp4" />
               Your browser does not support the video element.
@@ -320,8 +321,8 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800' 
-              alt='Team collaborating'
+              src={carouselImages[0].src} 
+              alt={carouselImages[0].alt}
             />
           </motion.div>
         </div>
