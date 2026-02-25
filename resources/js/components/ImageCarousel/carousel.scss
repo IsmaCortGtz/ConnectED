@@ -1,0 +1,123 @@
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--surface2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    .carousel-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .carousel-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: var(--text1);
+        font-size: 1.2rem;
+        text-align: center;
+      }
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text1);
+      border: none;
+      font-size: 3rem;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background-color: var(--brand);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      &.prev {
+        left: 1rem;
+      }
+
+      &.next {
+        right: 1rem;
+      }
+    }
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+
+    .indicator {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      border: 2px solid var(--brand);
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+
+      &:hover {
+        background-color: var(--brand2);
+        transform: scale(1.2);
+      }
+
+      &.active {
+        background-color: var(--brand);
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    .carousel-wrapper {
+      aspect-ratio: 4 / 3;
+
+      .carousel-button {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+
+        &.prev {
+          left: 0.5rem;
+        }
+
+        &.next {
+          right: 0.5rem;
+        }
+      }
+
+      .carousel-slide .carousel-caption {
+        padding: 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+}

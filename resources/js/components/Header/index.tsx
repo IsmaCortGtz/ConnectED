@@ -13,7 +13,6 @@ import { UserRoles } from '@/store/types/auth';
 import Avatar from '../Avatar';
 
 const NAV_ROUTES = {
-  dashboard: '/dashboard',
   login: '/login',
 
   users: '/admin/users',
@@ -42,7 +41,7 @@ export function Header() {
         className='page-header-container'
         {...animationConfig.headerPage}
       >
-        <ConnectED color='blue' className='logo-component' />
+        <ConnectED onClick={() => navigate("/")} color='blue' className='logo-component' />
 
         {isLoggedIn() ? (<>
           <aside className={`page-sidebar-container${profile ? ' active' : ''}`}>
@@ -62,10 +61,6 @@ export function Header() {
               </header>
 
               <nav className='navbar-content'>
-                <NavLink className='item' to={NAV_ROUTES.dashboard}>
-                  Dashboard
-                </NavLink>
-
                 {role === UserRoles.STUDENT && (<>
                   <NavLink className='item' to={NAV_ROUTES.discover}>
                     Discover

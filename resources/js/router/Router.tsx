@@ -25,13 +25,12 @@ export default function Router() {
       <Route element={<Header />}>
       
         {/* Public Routes */}
+        <Route path="/" Component={HomePage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
-        <Route path="/" Component={HomePage} />
         
         {/* Any Role */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" Component={HomePage} />
           <Route path="/video-call/:lessonId" Component={VideoCall} />
         </Route>
 

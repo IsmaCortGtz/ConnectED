@@ -4,11 +4,12 @@ import { RootState } from "@/store/store";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export function useAuth(useVerify: boolean = false) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const auth = useSelector((state: RootState) => state.auth);
   
   // Verificar sesión al cargar la app
@@ -33,10 +34,10 @@ export function useAuth(useVerify: boolean = false) {
 
   useEffect(() => {
     if (auth.isInitializing) return;
-    if (useVerify && !auth.id) {
+    if (useVerify && !auth.id && pathname !== '/' && pathname !== '/login' && pathname !== '/register') {
       navigate('/login');
     }
-  }, [auth.isInitializing]);
+  }, [auth.isInitializing, pathname]);
   
   const isLoggedIn = () => {
     if (!auth) return false;
@@ -86,7 +87,6 @@ export function useAuth(useVerify: boolean = false) {
     try {
       await axios.post('/logout');
       dispatch(resetAuth());
-      navigate('/login');
     } catch (e) {
       if (e instanceof AxiosError) {
         Alert.error("Error during logout", e.response?.data?.message || "There was an error while trying to log out. Please try again later.");

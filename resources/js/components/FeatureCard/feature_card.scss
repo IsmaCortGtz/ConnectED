@@ -1,0 +1,65 @@
+.feature-card {
+  background: linear-gradient(135deg, var(--surface2), var(--surface1));
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    border-color: var(--brand);
+    box-shadow: 0 8px 16px rgba(37, 157, 244, 0.2);
+  }
+
+  .icon-wrapper {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1.5rem;
+    background: var(--brand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    .icon-component {
+      width: 100%;
+      height: 100%;
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text1);
+  }
+
+  p {
+    color: var(--text2);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-card {
+    padding: 1.5rem;
+
+    .icon-wrapper {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
