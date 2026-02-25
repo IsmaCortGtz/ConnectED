@@ -32,6 +32,17 @@ section.lesson-list-container {
   flex-direction: column;
   gap: 1rem;
 
+  div.no-lessons {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text3);
+    opacity: 0.5;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.5rem;
+    user-select: none;
+  }
+
   article.lesson-item {
     padding: 0.8rem;
     border-radius: 0.5rem;

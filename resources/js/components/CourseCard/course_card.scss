@@ -16,7 +16,7 @@ article.course-card {
   img.course-image {
     width: 100%;
     aspect-ratio: 16 / 5;
-    object-fit: contain;
+    object-fit: cover;
     background-color: var(--brand1);
     border: none;
     user-select: none;

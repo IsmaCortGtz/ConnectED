@@ -18,7 +18,7 @@ class Courses extends Controller {
                 return [
                     'id' => $course->id,
                     'title' => $course->title,
-                    'image' => $course->image,
+                    'image' => $course->image ? url('storage/courses/' . $course->image) : null,
                     'rating' => $course->rating(),
                     'lessons_count' => $course->lessons_count,
                     'professor' => $course->professor->name . ' ' . $course->professor->last_name,
@@ -40,12 +40,12 @@ class Courses extends Controller {
             'id' => $course->id,
             'title' => $course->title,
             'description' => $course->description,
-            'image' => $course->image,
+            'image' => $course->image ? url('storage/courses/' . $course->image) : null,
             'rating' => $course->rating(),
             'lessons_count' => $course->lessons()->count(),
             'professor' => [
                 'name' => $course->professor->name . ' ' . $course->professor->last_name,
-                'image' => $course->professor->image,
+                'image' => $course->professor->image ? url('storage/users/' . $course->professor->image) : null,
             ],
             'lessons' => $course->lessons,
         ]);

@@ -45,6 +45,12 @@ export default function UserLessons() {
           </article>
         ))}
 
+        {data?.lessons?.length === 0 && (
+          <div className="no-lessons">
+            <p>No lessons available yet.</p>
+          </div>
+        )}
+
       </section>
 
     </section>
