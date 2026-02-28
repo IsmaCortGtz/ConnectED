@@ -36,6 +36,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put("/lessons/{id}", [Admin\Lessons::class, 'update']);
         Route::delete("/lessons/{id}", [Admin\Lessons::class, 'destroy']);
         Route::patch("/lessons/{id}/restore", [Admin\Lessons::class, 'restore']);
+
+        /* Landing module */
+        Route::get("/landing", [Admin\LandingController::class, 'index']);
+        Route::get("/landing/file/{id}", [Admin\LandingController::class, 'get']);
+        Route::post("/landing", [Admin\LandingController::class, 'store']);
+        Route::delete("/landing/{id}", [Admin\LandingController::class, 'destroy']);
     });
 
     /* User routes */

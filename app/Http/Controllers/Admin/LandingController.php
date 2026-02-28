@@ -18,6 +18,7 @@ class LandingController extends Controller {
             ->map(function ($asset) {
                 return [
                     'url' => url('/landing/file/' . $asset->id),
+                    'id' => $asset->id,
                     'description' => $asset->description,
                 ];
             });
@@ -32,6 +33,7 @@ class LandingController extends Controller {
             'images' => $images,
             'video' => [
                 'url' => $video ? url('/landing/file/' . $video->id) : null,
+                'id' => $video ? $video->id : null,
                 'description' => $video ? $video->description : null,
             ],
         ]);
@@ -39,12 +41,16 @@ class LandingController extends Controller {
 
     public function get($id) {
         $asset = LandingAsset::findOrFail($id);
+        $disk = $asset->type === 'image' ? 'images' : 'videos';
 
-        if ($asset->type === 'image') {
-            return response()->file(storage_path('app/images/' . $asset->url));
-        } else if ($asset->type === 'video') {
-            return response()->file(storage_path('app/images/' . $asset->url));
+        if (!Storage::disk($disk)->exists($asset->url)) {
+            return response()->json(['message' => 'File not found'], 404);    
         }
+
+        $file = Storage::disk($disk)->get($asset->url);
+        $mimeType = File::mimeType(Storage::disk($disk)->path($asset->url));
+
+        return response($file, 200)->header('Content-Type', $mimeType);
     }
 
     public function store(Request $request) {
@@ -57,8 +63,9 @@ class LandingController extends Controller {
         // Save in private storage
         $file = $request->file('file');
         $path = time() . '_' . uniqid() . '.' . $file->getClientOriginalName();
-        
-        Storage::disk('images')->put($path, File::get($file));
+        $disk = $request->type === 'image' ? 'images' : 'videos';
+
+        Storage::disk($disk)->put($path, File::get($file));
 
         $asset = LandingAsset::create([
             'type' => $request->type,
@@ -67,5 +74,21 @@ class LandingController extends Controller {
         ]);
 
         return response()->json($asset, 201);
+    }
+
+    public function destroy($id) {
+        $asset = LandingAsset::findOrFail($id);
+
+        // Delete the file from storage
+        if ($asset->type === 'image') {
+            Storage::disk('images')->delete($asset->url);
+        } else if ($asset->type === 'video') {
+            Storage::disk('videos')->delete($asset->url);
+        }
+
+        // Delete the database record
+        $asset->delete();
+
+        return response()->json(['message' => 'Asset deleted successfully']);
     }
 }
