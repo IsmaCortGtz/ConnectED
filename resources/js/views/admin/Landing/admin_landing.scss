@@ -1,0 +1,26 @@
+@use "@/styles/media.scss" as media;
+
+main:has(section.admin-manage-landing-assets-section) {
+  @include media.media-desktop {
+    max-width: 1200px;
+  }
+}
+
+
+h2.admin-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.15rem solid var(--border);
+
+  &:not(:first-of-type) {
+    margin-top: 3rem;
+  }
+}
+
+
+section.admin-manage-landing-assets-section {
+  
+}

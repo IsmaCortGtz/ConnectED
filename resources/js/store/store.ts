@@ -4,6 +4,7 @@ import { usersApi } from './slices/admin/users';
 import { coursesApi } from './slices/admin/courses';
 import { userCoursesApi } from './slices/user/courses';
 import { lessonsApi } from './slices/admin/lesson';
+import { landingApi } from './slices/admin/landing';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     [coursesApi.reducerPath]: coursesApi.reducer,
     [lessonsApi.reducerPath]: lessonsApi.reducer,
     [userCoursesApi.reducerPath]: userCoursesApi.reducer,
+    [landingApi.reducerPath]: landingApi.reducer,
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware()
@@ -20,6 +22,7 @@ export const store = configureStore({
         coursesApi.middleware,
         lessonsApi.middleware,
         userCoursesApi.middleware,
+        landingApi.middleware,
       )
 });
 
