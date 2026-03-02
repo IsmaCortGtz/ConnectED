@@ -16,7 +16,24 @@ export const landingApi = createApi({
       }),
     }),
 
+    uploadAsset: builder.mutation({
+      invalidatesTags: ["LandingAssets"],
+      query: (formData) => ({
+        url: "/admin/landing",
+        method: "POST",
+        data: formData,
+      }),
+    }),
+
+    deleteAsset: builder.mutation({
+      invalidatesTags: ["LandingAssets"],
+      query: (id) => ({
+        url: `/admin/landing/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
   }),
 });
 
-export const { useGetAssetsQuery } = landingApi;
+export const { useGetAssetsQuery, useUploadAssetMutation, useDeleteAssetMutation } = landingApi;
