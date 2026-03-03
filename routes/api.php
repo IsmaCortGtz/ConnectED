@@ -5,12 +5,19 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
 
+
+Route::get("/landing", [Admin\LandingController::class, 'index']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get("/user", [AuthController::class, 'me']);
     
     /* Admin routes */
     Route::prefix('admin')->middleware('role:administrator')->group(function () {
+        /* Landing module */
+        Route::post("/landing", [Admin\LandingController::class, 'store']);
+        Route::delete("/landing/{id}", [Admin\LandingController::class, 'destroy']);
+
         /* Users module */
         Route::get("/users", [Admin\Users::class, 'index']);
         Route::get("/users/{id}", [Admin\Users::class, 'show']);
@@ -36,16 +43,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put("/lessons/{id}", [Admin\Lessons::class, 'update']);
         Route::delete("/lessons/{id}", [Admin\Lessons::class, 'destroy']);
         Route::patch("/lessons/{id}/restore", [Admin\Lessons::class, 'restore']);
-
-        /* Landing module */
-        Route::get("/landing", [Admin\LandingController::class, 'index']);
-        Route::get("/landing/file/{id}", [Admin\LandingController::class, 'get']);
-        Route::post("/landing", [Admin\LandingController::class, 'store']);
-        Route::delete("/landing/{id}", [Admin\LandingController::class, 'destroy']);
     });
 
     /* User routes */
-    Route::prefix('user')->middleware('role:student')->group(function () {
+    Route::prefix('user')->middleware('role:student,administrator')->group(function () {
         Route::get("/courses", [User\Courses::class, 'index']);
         Route::get("/courses/{id}", [User\Courses::class, 'show']);
 

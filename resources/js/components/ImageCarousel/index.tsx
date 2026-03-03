@@ -3,9 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './carousel.scss';
 
 export interface CarouselImage {
-  src: string;
-  alt: string;
-  caption?: string;
+  url: string;
+  description: string;
 }
 
 export interface ImageCarouselProps {
@@ -67,15 +66,15 @@ export default function ImageCarousel({ images, autoPlayDelay = 5000 }: ImageCar
             }}
             className="carousel-slide"
           >
-            <img src={images[imageIndex].src} alt={images[imageIndex].alt} />
-            {images[imageIndex].caption && (
+            <img src={images[imageIndex]?.url} alt={images[imageIndex]?.description} />
+            {images[imageIndex]?.description && (
               <motion.div 
                 className="carousel-caption"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                {images[imageIndex].caption}
+                {images[imageIndex]?.description}
               </motion.div>
             )}
           </motion.div>

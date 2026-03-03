@@ -5,9 +5,12 @@ import FeatureCard from '@/components/FeatureCard';
 import ImageCarousel from '@/components/ImageCarousel';
 import { Icon } from '@/components/Icon';
 import { useNavigate } from 'react-router';
+import { useGetAssetsQuery } from '@/store/slices/admin/landing';
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { data } = useGetAssetsQuery(undefined);
+  
   const videoUrl = '';
   const videoPoster = 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=1200';
 
@@ -212,13 +215,13 @@ export default function HomePage() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {videoUrl ? (
+          {data?.video?.url ? (
             <video 
               controls 
               preload="metadata"
               poster={videoPoster}
             >
-              <source src={videoUrl} type="video/mp4" />
+              <source src={data?.video?.url} type="video/mp4" />
               Your browser does not support the video element.
             </video>
           ) : (
@@ -253,7 +256,7 @@ export default function HomePage() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <ImageCarousel images={carouselImages} autoPlayDelay={5000} />
+          <ImageCarousel images={data?.images || []} autoPlayDelay={5000} />
         </motion.div>
       </motion.section>
 
@@ -321,8 +324,8 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
           >
             <img 
-              src={carouselImages[0].src} 
-              alt={carouselImages[0].alt}
+              src={data?.images?.[0]?.url} 
+              alt={data?.images?.[0]?.description}
             />
           </motion.div>
         </div>

@@ -11,7 +11,7 @@ export const landingApi = createApi({
     getAssets: builder.query({
       providesTags: ["LandingAssets"],
       query: () => ({
-        url: "/admin/landing",
+        url: "/landing",
         method: "GET"
       }),
     }),

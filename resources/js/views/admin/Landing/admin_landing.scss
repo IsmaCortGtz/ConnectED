@@ -22,5 +22,87 @@ h2.admin-section-title {
 
 
 section.admin-manage-landing-assets-section {
-  
+  section.images-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  video.video-placeholder {
+    width: 100%;
+    max-width: 40rem;
+    border-radius: 0.5rem;
+  }
+
+  div.add-asset, div.image-container, div.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.5rem;
+    background-color: var(--surface4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: filter 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    border: 3px solid var(--brand1);
+
+    &:hover {
+      filter: brightness(1.1);
+      border-color: var(--brand3);
+
+      span.add-asset-icon {
+        transform: scale(1.1);
+      }
+    }
+
+    span.add-asset-icon {
+      transition: transform 0.2s ease-in-out;
+      border-radius: 100%;
+      background-color: var(--brand);
+      color: white;
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button.delete-icon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    img.image-item, video.video-item {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+div[data-modal-id] {
+  @include media.media-desktop {
+    min-width: 40rem;
+  }
+
+  @include media.media-mobile {
+    width: 90%;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  form.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
 }

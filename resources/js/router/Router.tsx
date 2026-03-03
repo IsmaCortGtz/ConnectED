@@ -32,6 +32,8 @@ export default function Router() {
         
         {/* Any Role */}
         <Route element={<ProtectedRoute />}>
+          <Route path="discover" Component={UserCourses} />
+          <Route path="course/:id" Component={UserLessons} />
           <Route path="/video-call/:lessonId" Component={VideoCall} />
         </Route>
 
@@ -50,12 +52,6 @@ export default function Router() {
           <Route path="lessons/edit/:id" Component={AdminCreateLesson} />
 
           <Route path="landing" Component={AdminLanding} />
-        </Route>
-
-        {/* User */}
-        <Route element={<ProtectedRoute role={UserRoles.STUDENT} />}>
-          <Route path="discover" Component={UserCourses} />
-          <Route path="course/:id" Component={UserLessons} />
         </Route>
 
         {/* Error Pages */}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
 
-Route::get('/images', [App\Http\Controllers\Admin\LandingController::class, 'index']);
+Route::get("/landing/file/{id}", [App\Http\Controllers\Admin\LandingController::class, 'get']);
 
 Route::get('/print/users', [App\Http\Controllers\Admin\PDFController::class, 'generateUsersPDF']);
 Route::get('/print/courses', [App\Http\Controllers\Admin\PDFController::class, 'generateCoursesPDF']);

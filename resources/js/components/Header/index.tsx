@@ -62,11 +62,9 @@ export function Header() {
               </header>
 
               <nav className='navbar-content'>
-                {role === UserRoles.STUDENT && (<>
-                  <NavLink className='item' to={NAV_ROUTES.discover}>
-                    Discover
-                  </NavLink>
-                </>)}
+                <NavLink className='item' to={NAV_ROUTES.discover}>
+                  Discover
+                </NavLink>
 
                 {role === UserRoles.ADMIN && (
                   <section className='navbar-dropdown'>

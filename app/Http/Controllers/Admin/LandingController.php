@@ -56,8 +56,8 @@ class LandingController extends Controller {
     public function store(Request $request) {
         $request->validate([
             'type' => 'required|in:image,video',
-            'file' => 'required|file|mimes:jpg,jpeg,png,mp4,mov,avi|max:10240',
-            'description' => 'nullable|string',
+            'file' => 'required|file|mimes:jpg,jpeg,png,mp4,mov,avi,webp|max:10240',
+            'description' => 'required|string',
         ]);
 
         // Save in private storage
