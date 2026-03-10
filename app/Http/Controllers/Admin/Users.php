@@ -66,7 +66,7 @@ class Users extends Controller {
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'last_name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => "sometimes|required|string|email|max:255|unique:users,email,$id",
             'password' => 'sometimes|required|string|min:8|confirmed',
             'role' => 'sometimes|required|string|in:administrator,professor,student',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',

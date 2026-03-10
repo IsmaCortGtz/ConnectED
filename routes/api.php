@@ -2,11 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
 
 
 Route::get("/landing", [Admin\LandingController::class, 'index']);
+
+/* Password Reset Routes (No Auth Required) */
+Route::post("/auth/forgot-password", [PasswordResetController::class, 'sendResetLink']);
+Route::post("/auth/reset-password", [PasswordResetController::class, 'resetPassword']);
+Route::post("/auth/verify-token", [PasswordResetController::class, 'verifyToken']);
 
 Route::middleware('auth:sanctum')->group(function () {
 

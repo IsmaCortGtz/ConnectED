@@ -67,7 +67,7 @@ export function AdminCreateUser() {
             animate={{ scale: 1 }}
             transition={{ delay: animationConfig.delays.emailField, duration: 0.15 }}
           >
-            <Input id="email" name="email" placeholder="Email" defaultValue={userData?.email || ""} required={!isEditMode} />
+            <Input key={`email-default-${userData?.email || "new"}`} id="email" name="email" placeholder="Email" defaultValue={userData?.email || ""} autoComplete="off" required={!isEditMode} />
           </motion.div>
         </motion.div>
 

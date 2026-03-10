@@ -86,6 +86,18 @@ export default function LoginPage() {
           Sign In
         </Button>
 
+        {/* Forgot Password link */}
+        <motion.p className="register" variants={animationConfig.link}>
+          <MotionLink
+            className="link"
+            to="/forgot-password"
+            whileHover={animationConfig.link.hover}
+            style={{ display: "inline-block" }}
+          >
+            Forgot your password?
+          </MotionLink>
+        </motion.p>
+
         {/* Registro link animado */}
         <motion.p className="register" variants={animationConfig.link}>
           Don't have an account?{" "}

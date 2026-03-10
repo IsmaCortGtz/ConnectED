@@ -34,7 +34,7 @@ export function useAuth(useVerify: boolean = false) {
 
   useEffect(() => {
     if (auth.isInitializing) return;
-    if (useVerify && !auth.id && pathname !== '/' && pathname !== '/login' && pathname !== '/register') {
+    if (useVerify && !auth.id && !['/', '/login', '/register', '/forgot-password', '/reset-password'].includes(pathname)) {
       navigate('/login');
     }
   }, [auth.isInitializing, pathname]);

@@ -6,6 +6,8 @@ import { Error404Page } from "@/views/error/404";
 import LoginPage from "@/views/Login";
 import HomePage from "@/views/Home";
 import RegisterPage from "@/views/Register";
+import ForgotPasswordPage from "@/views/ForgotPassword";
+import ResetPasswordPage from "@/views/ResetPassword";
 import { Header } from "@/components/Header";
 import VideoCall from "@/views/VideoCall";
 
@@ -29,6 +31,8 @@ export default function Router() {
         <Route path="/" Component={HomePage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/register" Component={RegisterPage} />
+        <Route path="/forgot-password" Component={ForgotPasswordPage} />
+        <Route path="/reset-password" Component={ResetPasswordPage} />
         
         {/* Any Role */}
         <Route element={<ProtectedRoute />}>
