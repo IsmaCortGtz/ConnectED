@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user && user.id) navigate('/dashboard');
+    if (user && user.id) navigate('/discover');
   }, [user?.id, navigate]);
   
   return (

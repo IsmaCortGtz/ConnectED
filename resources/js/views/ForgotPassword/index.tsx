@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/Input";
 import { ConnectED } from "@/components/ConnectED";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { animationConfig } from "@/config/animations";
 import axios from "axios";
@@ -12,7 +12,6 @@ import './forgot-password.scss';
 const MotionLink = motion.create(Link);
 
 export default function ForgotPasswordPage() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
@@ -30,11 +29,6 @@ export default function ForgotPasswordPage() {
       
       setMessage({ type: 'success', text: data.message || 'Password reset link sent to your email' });
       setLoading(false);
-      
-      // Redirect to login after 3 seconds
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
     } catch (error: any) {
       setLoading(false);
       const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';

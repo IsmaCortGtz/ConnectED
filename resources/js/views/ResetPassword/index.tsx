@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/Input";
 import { ConnectED } from "@/components/ConnectED";
-import { Link, useNavigate, useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { motion } from "framer-motion";
 import { animationConfig } from "@/config/animations";
 import axios from "axios";
@@ -12,7 +12,6 @@ import './reset-password.scss';
 const MotionLink = motion.create(Link);
 
 export default function ResetPasswordPage() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [validating, setValidating] = useState(true);
@@ -40,16 +39,11 @@ export default function ResetPasswordPage() {
         setTokenValid(false);
         const errorMessage = error.response?.data?.message || 'Invalid or expired token';
         setMessage({ type: 'error', text: errorMessage });
-        
-        // Redirect to forgot password after 3 seconds
-        setTimeout(() => {
-          navigate('/forgot-password');
-        }, 3000);
       }
     };
 
     verifyToken();
-  }, [email, token, navigate]);
+  }, [email, token]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -77,11 +71,6 @@ export default function ResetPasswordPage() {
       
       setMessage({ type: 'success', text: data.message || 'Password reset successfully' });
       setLoading(false);
-      
-      // Redirect to login after 2 seconds
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
     } catch (error: any) {
       setLoading(false);
       const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
